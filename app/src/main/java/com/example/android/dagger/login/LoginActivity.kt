@@ -25,13 +25,21 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Observer
-import com.example.android.dagger.MyApplication
 import com.example.android.dagger.R
 import com.example.android.dagger.main.MainActivity
 import com.example.android.dagger.registration.RegistrationActivity
+import dagger.hilt.EntryPoint
+import dagger.hilt.InstallIn
 import javax.inject.Inject
 
 class LoginActivity : AppCompatActivity() {
+
+    @InstallIn(SingletonComponent::class)
+    @EntryPoint
+    interface LoginEntryPoint {
+        fun loginComponent(): LoginComponent.Factory
+    }
+
 
     // @Inject annotated fields will be provided by Dagger
     @Inject
@@ -41,9 +49,8 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        // Creates an instance of Login component by grabbing the factory from the app graph
-        // and injects this activity to that Component
-        (application as MyApplication).appComponent.loginComponent().create().inject(this)
+        val entryPoint = EntryPointAccessors.fromApplication(applicationContext, LoginEntryPoint::class.java)
+        entryPoint.loginComponent().create().inject(this)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
