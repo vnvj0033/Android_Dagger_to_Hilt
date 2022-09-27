@@ -25,11 +25,13 @@ import com.example.android.dagger.registration.enterdetails.EnterDetailsFragment
 import com.example.android.dagger.registration.termsandconditions.TermsAndConditionsFragment
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
+import dagger.hilt.android.EntryPointAccessors
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Inject
 
 class RegistrationActivity : AppCompatActivity() {
 
-    @InstallIn(ApplicationComponent::class)
+    @InstallIn(SingletonComponent::class)
     @EntryPoint
     interface RegistrationEntryPoint {
         fun registrationComponent(): RegistrationComponent.Factory
@@ -51,6 +53,7 @@ class RegistrationActivity : AppCompatActivity() {
 
         // Injects this activity to the just created Registration component
         registrationComponent.inject(this)
+
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)

@@ -20,9 +20,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import com.example.android.dagger.MyApplication
 import com.example.android.dagger.R
 import com.example.android.dagger.login.LoginActivity
+import com.example.android.dagger.main.MainActivity
+import dagger.hilt.android.EntryPointAccessors
 import javax.inject.Inject
 
 class SettingsActivity : AppCompatActivity() {
