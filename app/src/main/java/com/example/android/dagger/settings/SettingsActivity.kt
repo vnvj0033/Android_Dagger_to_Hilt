@@ -24,8 +24,10 @@ import com.example.android.dagger.R
 import com.example.android.dagger.login.LoginActivity
 import com.example.android.dagger.main.MainActivity
 import dagger.hilt.android.EntryPointAccessors
+import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
+@HiltAndroidApp
 class SettingsActivity : AppCompatActivity() {
 
     // @Inject annotated fields will be provided by Dagger

@@ -30,8 +30,10 @@ import androidx.lifecycle.Observer
 import com.example.android.dagger.R
 import com.example.android.dagger.registration.RegistrationActivity
 import com.example.android.dagger.registration.RegistrationViewModel
+import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
+@HiltAndroidApp
 class EnterDetailsFragment : Fragment() {
 
     /**

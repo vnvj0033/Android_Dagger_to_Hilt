@@ -26,8 +26,10 @@ import androidx.fragment.app.Fragment
 import com.example.android.dagger.R
 import com.example.android.dagger.registration.RegistrationActivity
 import com.example.android.dagger.registration.RegistrationViewModel
+import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
+@HiltAndroidApp
 class TermsAndConditionsFragment : Fragment() {
 
     // @Inject annotated fields will be provided by Dagger
