@@ -22,27 +22,13 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.android.dagger.R
-import com.example.android.dagger.login.LoginActivity
-import com.example.android.dagger.registration.RegistrationActivity
 import com.example.android.dagger.settings.SettingsActivity
-import com.example.android.dagger.user.UserManager
-import dagger.hilt.EntryPoint
-import dagger.hilt.InstallIn
-import dagger.hilt.android.EntryPointAccessors
-import dagger.hilt.android.HiltAndroidApp
-import dagger.hilt.components.SingletonComponent
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-@HiltAndroidApp
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    @InstallIn(SingletonComponent::class)
-    @EntryPoint
-    interface UserManagerEntryPoint {
-        fun userManager(): UserManager
-    }
-
-    // @Inject annotated fields will be provided by Dagger
     @Inject
     lateinit var mainViewModel: MainViewModel
 
@@ -53,25 +39,8 @@ class MainActivity : AppCompatActivity() {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val entryPoint = EntryPointAccessors.fromApplication(applicationContext, UserManagerEntryPoint::class.java)
-        val userManager = entryPoint.userManager()
-        if (!userManager.isUserLoggedIn()) {
-            if (!userManager.isUserRegistered()) {
-                startActivity(Intent(this, RegistrationActivity::class.java))
-                finish()
-            } else {
-                startActivity(Intent(this, LoginActivity::class.java))
-                finish()
-            }
-        } else {
-            setContentView(R.layout.activity_main)
-
-            // If the MainActivity needs to be displayed, we get the UserComponent from the
-            // application graph and gets this Activity injected
-            userManager.userComponent!!.inject(this)
-            setupViews()
-        }
+        setContentView(R.layout.activity_main)
+        setupViews()
     }
 
     /**
