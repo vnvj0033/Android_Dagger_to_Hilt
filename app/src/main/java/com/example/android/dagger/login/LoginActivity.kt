@@ -28,22 +28,11 @@ import androidx.lifecycle.Observer
 import com.example.android.dagger.R
 import com.example.android.dagger.main.MainActivity
 import com.example.android.dagger.registration.RegistrationActivity
-import dagger.hilt.EntryPoint
-import dagger.hilt.InstallIn
-import dagger.hilt.android.EntryPointAccessors
-import dagger.hilt.android.HiltAndroidApp
-import dagger.hilt.components.SingletonComponent
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-@HiltAndroidApp
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
-
-    @InstallIn(SingletonComponent::class)
-    @EntryPoint
-    interface LoginEntryPoint {
-        fun loginComponent(): LoginComponent.Factory
-    }
-
 
     // @Inject annotated fields will be provided by Dagger
     @Inject
@@ -52,10 +41,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var errorTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        val entryPoint = EntryPointAccessors.fromApplication(applicationContext, LoginEntryPoint::class.java)
-        entryPoint.loginComponent().create().inject(this)
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
